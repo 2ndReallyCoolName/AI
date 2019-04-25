@@ -8,7 +8,7 @@ class AbstractRNN(ABC):
     timestamp = 1
 
     def __init__(self, input_size, hidden_size,  output_activation="softmax", hidden_activation='tanh',
-                 weight_param=(0, 5), bias_params=(-1, 1), bias_bool=True, fp=''):
+                 weight_param=(0, 5), bias_params=(-1, 1), bias_bool=True, training_iterations=3):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_activation = output_activation
@@ -18,6 +18,7 @@ class AbstractRNN(ABC):
         self.bias_bool = bias_bool
         self.A = Activation()
         self.Vectors['h0'] = np.zeros(hidden_size)
+        self.iterations = training_iterations
 
     @abstractmethod
     def initiate_weights(self):
@@ -28,7 +29,7 @@ class AbstractRNN(ABC):
         pass
 
     @abstractmethod
-    def gradient(self, error_vect, training_rate):
+    def gradient(self, error,i, j):
         pass
 
     @abstractmethod
