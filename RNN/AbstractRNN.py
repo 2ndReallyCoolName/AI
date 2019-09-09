@@ -4,11 +4,11 @@ import numpy as np
 
 
 class AbstractRNN(ABC):
-    Vectors = {}
-    timestamp = 1
 
     def __init__(self, input_size, hidden_size,  output_activation="softmax", hidden_activation='tanh',
                  weight_param=(0, 5), bias_params=(-1, 1), bias_bool=True, training_iterations=3):
+        self.Vectors = {}
+        self.timestamp = 1
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_activation = output_activation
@@ -25,17 +25,18 @@ class AbstractRNN(ABC):
         pass
 
     @abstractmethod
-    def feed_forward(self, input_vect):
+    def feed_forward_one_vect(self, input_vect):
         pass
 
     @abstractmethod
-    def gradient(self, error,i, j):
-        pass
-
-    @abstractmethod
-    def reset(self):
+    def train(self, error):
         pass
 
     def get_output_abs(self, vect):
         return self.Vectors[vect+str(self.timestamp-1)]
 
+    def feed_forward(self, input_vects):
+        assert np.asarray(input_vects).ndim == 2
+        self.timestamp = 1
+        for vector in input_vects:
+            self.feed_forward_one_vect(vector)
