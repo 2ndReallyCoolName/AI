@@ -3,11 +3,12 @@ from math import e
 
 
 class Activation(object):
-    errors = {}
-    alpha = 0.001
 
     def __init__(self, alpha=0.01):
         self.alpha = alpha
+        self.errors = {}
+        self.dct = {'linear': self.linear, 'sigmoid': self.sigmoid_wrapper, 'tanh': self.tanh, 'relu': self.relu,
+               'leaky_relu': self.leaky_relu, 'softplus': self.softplus, 'softmax': self.softmax_wrapper}
 
     def linear(self, vector, vect_name):
         self.linear_derivative(vector, vect_name)
@@ -73,13 +74,10 @@ class Activation(object):
         for i in range(len(vector)):
             self.errors[vect_name][i] = a[i]*(1 - a[i])
 
-    def activation_function(self, vector, act_function, vect_name="a", *args):
-        dct = {'linear':self.linear, 'sigmoid': self.sigmoid_wrapper, 'tanh':self.tanh, 'relu': self.relu,
-               'leaky_relu': self.leaky_relu, 'softplus': self.softplus, 'softmax': self.softmax_wrapper}
-
+    def activation_function(self, vector, act_function, vect_name="a"):
         if act_function is None:
             self.errors[vect_name] = np.asarray([1 for i in range(len(vector))])
             return vector
         else:
-            return dct[act_function](vector, vect_name)
+            return self.dct[act_function](vector, vect_name)
 
