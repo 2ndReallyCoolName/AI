@@ -1,10 +1,6 @@
 from PIL import Image
 import os
 
-# filepath = "C:\\Users\\ninanpyo\\Pictures\\Saved Pictures\\40167808_10213079885337252_7529443021281034240_n.jpg"
-# # dir_fp = "C:\\Users\\ninanpyo\\Pictures\\Saved Pictures\\"
-# dir_fp = "C:\\Users\\ninanpyo\\Desktop\\datasets\\Training\\00000"
-
 
 def get_image(img_filepath):
     img = Image.open(img_filepath)
