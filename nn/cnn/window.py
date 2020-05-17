@@ -50,7 +50,6 @@ class Window:
 
 
 if __name__ == '__main__':
-    # I = Image.open(r'C:\Users\ninanpyo\Pictures\19983784_1247165272076953_2765720285955350871_o.jpg')
     z = [i for i in range(32)]
     z = np.reshape(z, (2, 4, 4))
     c = Window((3, 3, 2))
